@@ -10,6 +10,17 @@ const personType = new GraphQL.GraphQLObjectType({
     }
 });
 
+const userType = new GraphQL.GraphQLObjectType({
+    name: "User",
+    fields: {
+        id: { type: GraphQL.GraphQLID },
+        email: { type: GraphQL.GraphQLString },
+        pwd: { type: GraphQL.GraphQLString }
+    }
+});
+
+const dao = require('../business/index');
+
 const resolver = new GraphQL.GraphQLObjectType({
     name: "Query",
     fields: {
@@ -28,11 +39,33 @@ const resolver = new GraphQL.GraphQLObjectType({
         persons: {
             type: new GraphQL.GraphQLList(personType),
             resolve: () => personData
-        }
-    }
+        },
+    },
 });
 
-const schema = new GraphQL.GraphQLSchema({query: resolver});
+const resolver_2 = new GraphQL.GraphQLObjectType({
+    name: "Mutations",
+    fields: {
+        createUser: {
+            type: userType,
+            args: {
+                email: {type: GraphQL.GraphQLString},
+                pwd: {type: GraphQL.GraphQLString},
+            },
+            resolve: async (_, args) => {
+                const { email, pwd } = args;
+                
+                return await dao.user.joinUser(email,pwd);
+            }
+        }
+    }
+})
+
+const schema = new GraphQL.GraphQLSchema(
+    {
+        query: resolver,
+        mutation: resolver_2
+    }
+);
 
 module.exports = { schema: schema, root: resolver };
-
