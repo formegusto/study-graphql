@@ -19,7 +19,11 @@ module.exports = new GraphQL.GraphQLObjectType({
         },
         persons: {
             type: new GraphQL.GraphQLList(PersonType),
-            resolve: () => personData
+            resolve: (_, args, context) => {
+                console.log(context);
+
+                return personData;
+            }
         },
     },
 });

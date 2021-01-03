@@ -11,8 +11,9 @@ module.exports = new GraphQL.GraphQLObjectType({
                 email: {type: GraphQL.GraphQLString},
                 pwd: {type: GraphQL.GraphQLString},
             },
-            resolve: async (_, args) => {
+            resolve: async (_, args, context) => {
                 const { email, pwd } = args;
+                console.log(context);
                 
                 return await dao.user.joinUser(email,pwd);
             }
