@@ -1,5 +1,5 @@
 const GraphQL = require('graphql');
-const { personData, personAddress } = require('./data');
+const { personAddress } = require('./data');
 
 const PersonAddressType = new GraphQL.GraphQLObjectType({
     name: "Address",
@@ -17,11 +17,7 @@ const PersonType = new GraphQL.GraphQLObjectType({
         age: { type: GraphQL.GraphQLInt },
         address: { 
             type: PersonAddressType,
-                resolve: (_, args, context) => {
-                console.log(_);
-
-                return personAddress.find(address => address.personId === _.id);
-            } 
+            resolve: (_, args, context) => personAddress.find(address => address.personId === _.id)
         },
     }
 });
