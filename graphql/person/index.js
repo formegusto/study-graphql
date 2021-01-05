@@ -1,8 +1,10 @@
 const GraphQL = require('graphql');
-const resolver = require('./resolver');
+const QueryResolver = require('./resolver/query');
+const MutationResolver = require('./resolver/mutaition');
 
 module.exports = new GraphQL.GraphQLSchema(
     {
-        query: resolver,
+        query: QueryResolver,
+        mutation: MutationResolver
     }
 );

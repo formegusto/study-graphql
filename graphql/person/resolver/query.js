@@ -1,10 +1,9 @@
 const GraphQL = require('graphql');
-const { personData, personAddress } = require('./data');
-const { PersonType, PersonAddressType } = require('./type');
+const { personData } = require('../data');
+const { PersonType } = require('../type');
 
-
-const RootResolver = new GraphQL.GraphQLObjectType({
-    name: "PersonResolver",
+const QueryResolver = new GraphQL.GraphQLObjectType({
+    name: "PersonQuery",
     fields: {
         person: {
             type: PersonType,
@@ -20,4 +19,4 @@ const RootResolver = new GraphQL.GraphQLObjectType({
     },
 });
 
-module.exports = RootResolver;
+module.exports = QueryResolver;
