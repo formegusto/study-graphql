@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT;
@@ -13,9 +14,12 @@ const session = {
     expires: 20000
 }
 
+app.use(cors());
+
 app.use('/graphql', graphqlHTTP.graphqlHTTP({
     schema: schema,
     context: session,
     graphiql: true,
 }));
+
 app.listen(PORT, () => console.log('Now brows to localhost:4000/graphql'));

@@ -23,7 +23,7 @@ const PersonInputType = new GraphQL.GraphQLInputObjectType({
         id: { type: GraphQL.GraphQLID },
         name: { type: GraphQL.GraphQLString },
         age: { type: GraphQL.GraphQLInt },
-        address: { type: PersonAddressInputType },
+        address: { type: GraphQL.GraphQLString },
     }
 })
 

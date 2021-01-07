@@ -1,7 +1,6 @@
 const GraphQL = require('graphql');
-const person = require('..');
 const { personData, personAddress } = require('../data');
-const { PersonType, PersonInputType, PersonAddressType } = require('../type');
+const { PersonType, PersonInputType } = require('../type');
 
 const MutationResolver = new GraphQL.GraphQLObjectType({
     name: "PersonMutation",
@@ -13,7 +12,10 @@ const MutationResolver = new GraphQL.GraphQLObjectType({
             },
             resolve: (_, args) => {
                 personData.push(args.person);
-                personAddress.push(args.person.address);
+                personAddress.push({
+                    personId: args.person.id,
+                    address : args.person.address
+                });
 
                 return personData;
             },
